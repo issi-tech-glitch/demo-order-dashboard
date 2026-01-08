@@ -1,14 +1,18 @@
 name: Keep App Awake
+
 on:
   schedule:
-    - cron: '0 */8 * * *' # Runs once every 8 hours
-  workflow_dispatch:
+    - cron: "0 */8 * * *" # Runs every 8 hours
+  workflow_dispatch:          # Allows you to test it manually
+
 jobs:
-  ping:
+  ping-job:
+    name: Ping Streamlit App
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
+      - name: Send Curl Request
         run: curl -I https://demo-order-dashboard-heinemann.streamlit.app/
+
   keepalive-job:
     name: Keepalive Workflow
     runs-on: ubuntu-latest

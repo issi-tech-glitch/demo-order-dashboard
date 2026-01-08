@@ -1,0 +1,10 @@
+name: Keep App Awake
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs once every day at midnight
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit App
+        run: curl -I https://demo-order-dashboard-heinemann.streamlit.app/

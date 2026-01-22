@@ -2,13 +2,20 @@ name: Keep App Awake
 
 on:
   schedule:
-    - cron: "0 */8 * * *"
-  workflow_dispatch:
+    - cron: '0 */12 * * *' #12h cycle
+  workflow_dispatch: #
 
 jobs:
-  ping-job:
-    name: Ping Streamlit App
+  keep-awake:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # To allow pushing commits
     steps:
-      - name: Send Curl Request
-        run: curl -I https://demo-order-dashboard-heinemann.streamlit.app/
+      - uses: actions/checkout@v4
+      
+      - name: Dummy Commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit --allow-empty -m "Keep-alive ping (12h cycle)"
+          git push
